@@ -18,6 +18,10 @@ def index(request):
     students = Student.objects.all()
     courses = Course.objects.all()
     
+    # Calculate counts for statistics
+    students_count = students.count()
+    courses_count = courses.count()
+    
     news_items = News.objects.all().order_by('-date')
     logger.debug(f"News items fetched: {list(news_items.values('id', 'title'))}")
     
@@ -120,4 +124,6 @@ def index(request):
         'page_obj': page_obj,
         'selected_news': selected_news,
         'news_id': news_id,
+        'students_count': students_count,  # Add students count to context
+        'courses_count': courses_count,    # Add courses count to context
     })
